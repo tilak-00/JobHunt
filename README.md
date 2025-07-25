@@ -1,1 +1,192 @@
 # JobHunt
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup Page - JobHunt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://www.careerolife.com/wp-content/uploads/2023/02/Job.jpg') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .signup-box {
+      background-color: rgba(255, 255, 255, 0.12); /* ← Transparent white */
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 0.6s ease-in-out;
+      backdrop-filter: blur(10px); /* for a glass-like effect */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .signup-box h2 {
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .signup-box input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #b5b8b3;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    .signup-box input:focus {
+      outline: none;
+      border-color: #f0560a;
+      box-shadow: 0 0 5px rgba(255, 109, 0, 0.5);
+    }
+
+    .signup-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #ff6d00;
+      color: rgb(244, 241, 241);
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-box button:hover {
+      background-color: #e65c00;
+    }
+
+    .signup-box .bottom-text {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .signup-box .bottom-text a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .signup-box .bottom-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Fullscreen overlay styles */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      transition: opacity 0.5s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overlay .message {
+      color: white;
+      font-size: 2rem;
+      text-align: center;
+      animation: zoomIn 0.6s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-box">
+    <h2>Create Account</h2>
+    <form id="signupForm" action="/signup" method="post">
+  <input type="text" name="fullName" placeholder="Full Name" required />
+
+  <input type="email" name="email" placeholder="Email (must be @gmail.com)"
+         pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" required />
+
+  <input type="text" name="mobileNumber" placeholder="Mobile Number" maxlength="10"
+         oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);" required />
+
+  <input type="password" name="password" placeholder="Password"
+         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$"
+         title="Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special character" required />
+
+  <input type="password" name="confirmPassword" placeholder="Confirm Password"
+         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$"
+         title="Must match password pattern" required />
+
+  <button type="submit">Sign Up</button>
+</form>
+
+    <div class="bottom-text">
+      Already have an account? <a href="/login">Login here</a>
+    </div>
+  </div>
+
+  <!-- Success overlay -->
+  <div class="overlay" id="successOverlay">
+    <div class="message">✅ Registration Successful! Redirecting to login...</div>
+  </div>
+
+  <script>
+  document.getElementById("signupForm").addEventListener("submit", async function(event) {
+	  event.preventDefault();
+
+	  const formData = new FormData(this);
+	  const response = await fetch('/signup', {
+	    method: 'POST',
+	    body: new URLSearchParams(formData)
+	  });
+
+	  if (response.ok) {
+	    document.getElementById("successOverlay").classList.add("active");
+	    setTimeout(() => {
+	      window.location.href = "/login";
+	    }, 2500);
+	  } else {
+	    const errorMessage = await response.text();
+	    alert(errorMessage);
+	  }
+	});
+
+</script>
+
+
+</body>
+</html>
