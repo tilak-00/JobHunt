@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Messages</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<div class="modal fade" id="adminAccessDeniedModal" tabindex="-1" aria-hidden="true" style="z-index: 9999;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-danger text-white">
+      <div class="modal-body text-center">
+        ❌ Access Denied<br>
+        Redirecting to Admin Login...<br>
+        Please Login First...
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<body>
+<!-- 🔒 Fullscreen Overlay to Hide Page -->
+<div id="adminOverlayBlocker" style="
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-color: white;
+  display: block;
+"></div>
+
+<!-- Bootstrap JS (needed for modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ✅ Admin Session Check Script -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const isAdminLoggedIn = sessionStorage.getItem('adminLoggedIn');
+
+    if (isAdminLoggedIn !== 'true') {
+      const deniedModal = new bootstrap.Modal(document.getElementById('adminAccessDeniedModal'));
+      deniedModal.show();
+
+      setTimeout(() => {
+        window.location.href = "/adminLGN";
+      }, 2000);
+    } else {
+      // ✅ Logged in → show page by removing blocker
+      document.getElementById('adminOverlayBlocker').style.display = 'none';
+    }
+  });
+</script>
+
+  <div class="container mt-5">
+    <h2>All Contact Messages</h2>
+    <table class="table table-bordered table-striped mt-4">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="msg : ${messages}">
+          <td th:text="${msg.id}">1</td>
+          <td th:text="${msg.name}">Name</td>
+          <td th:text="${msg.email}">Email</td>
+          <td th:text="${msg.message}">Message</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

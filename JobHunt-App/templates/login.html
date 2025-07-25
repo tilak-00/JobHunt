@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page - JobHunt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: url('https://www.simplilearn.com/ice9/free_resources_article_thumb/Digital_Marketing_Benefits.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-blend-mode: darken;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .login-container {
+      padding: 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ecf0f1;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .field {
+      position: relative;
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #f7fafa;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #eff2f5;
+      color: #0c0c0c;
+      margin-bottom: 8px;
+      transition: border-color 0.3s;
+    }
+
+    form input:focus {
+      border-color: #111010;
+      outline: none;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #ecf0f1;
+    }
+
+    button {
+      width: 100%;
+      background-color: #f47003;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #f54c04;
+    }
+
+    .signup-link {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .signup-link a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .admin-login {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .admin-login a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .admin-login a:hover {
+      text-decoration: underline;
+    }
+
+    .google-login {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .popup-button {
+      background-color: #fa7203;
+      color: #ecf0f1;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #fc4401;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s ease;
+    }
+
+    .popup-button:hover {
+      background-color: #fe5b03;
+    }
+
+    .error-msg {
+      color: red;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+
+    <form method="POST" action="/login">
+      <div class="field">
+        <input type="email" name="email" placeholder="Email" required />
+      </div>
+
+      <div class="field">
+        <input type="password" name="password" id="password" placeholder="Password" required />
+        <span class="show-password" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <div id="errorMessage" class="error-msg"></div>
+
+      <button type="submit">Login</button>
+
+      <div class="admin-login">
+         <a href="/adminLGN">Admin Login</a>
+      </div>
+    </form>
+
+    <div class="google-login">
+      <p>or</p>
+      <a href="/oauth2/authorization/google">
+        <button class="popup-button">Sign in with Google</button>
+      </a>
+    </div>
+
+    <div class="signup-link">
+      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordField = document.getElementById('password');
+      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("error")) {
+      document.getElementById("errorMessage").innerText = "Invalid email or password.";
+    }
+
+    window.onload = function () {
+      history.replaceState(null, "", location.href);
+      window.history.pushState(null, "", location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+    };
+  </script>
+</body>
+</html>

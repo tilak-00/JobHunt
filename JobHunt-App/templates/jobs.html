@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jobs - JobHunt</title>
+
+  <!-- ✅ Fonts & Bootstrap -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+      display: none; /* Hidden initially until access check */
+    }
+
+    .back-button {
+      margin-bottom: 20px;
+      display: inline-block;
+      color: #ff6d00;
+      padding: 10px 20px;
+      border: 2px solid black;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #ff6d00;
+      color: white;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    #searchInput {
+      padding: 10px;
+      width: 70%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    #filterIcon {
+      font-size: 22px;
+      cursor: pointer;
+      padding: 8px 12px;
+      background: #ff6d00;
+      color: white;
+      border-radius: 6px;
+      border: none;
+    }
+
+    #filterPanel {
+      display: none;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 10px 0 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .filter {
+      margin-right: 8px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      color: #ff6d00;
+      margin-bottom: 15px;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .info div {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .apply-btn {
+      background-color: #ff6d00;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .apply-btn:hover {
+      background-color: #e65c00;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #searchInput {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .info {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/home" class="back-button">← Back</a>
+
+<div class="container">
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search jobs...">
+    <button id="filterIcon">☰ Filters</button>
+  </div>
+
+  <div id="filterPanel">
+    <div class="filter-group">
+      <label>Location</label>
+      <label><input type="checkbox" class="filter location" value="Remote"> Remote</label>
+      <label><input type="checkbox" class="filter location" value="Hyderabad"> Hyderabad</label>
+    </div>
+    <div class="filter-group">
+      <label>Role</label>
+      <label><input type="checkbox" class="filter role" value="Full Stack Developer"> Full Stack Developer</label>
+      <label><input type="checkbox" class="filter role" value="Data Analyst"> Data Analyst</label>
+    </div>
+    <div class="filter-group">
+      <label>Skills</label>
+      <label><input type="checkbox" class="filter skills" value="React"> React</label>
+      <label><input type="checkbox" class="filter skills" value="Python"> Python</label>
+    </div>
+    <div class="filter-group">
+      <label>Eligibility</label>
+      <label><input type="checkbox" class="filter eligibility" value="B.Tech"> B.Tech</label>
+      <label><input type="checkbox" class="filter eligibility" value="AnyDegree"> AnyDegree</label>
+    </div>
+    <div class="filter-group">
+      <label>Salary</label>
+      <label><input type="checkbox" class="filter salary" value="4"> 4+ LPA</label>
+      <label><input type="checkbox" class="filter salary" value="6"> 6+ LPA</label>
+    </div>
+    <div class="filter-group">
+      <label>Experience</label>
+      <label><input type="checkbox" class="filter exp" value="0"> 0 Yrs</label>
+      <label><input type="checkbox" class="filter exp" value="1"> 1 Yrs</label>
+    </div>
+    <div class="filter-group">
+      <label>Qualification</label>
+      <label><input type="checkbox" class="filter qual" value="B.Tech"> B.Tech</label>
+      <label><input type="checkbox" class="filter qual" value="M.Tech"> M.Tech</label>
+    </div>
+  </div>
+
+  <div id="job-list"></div>
+
+</div>
+
+<!-- ❌ Access Denied Modal -->
+<div class="modal fade" id="accessDeniedModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-danger text-white">
+      <div class="modal-body text-center">
+        ❌ Access Denied<br>
+        Please access from Home page.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ✅ Home Page Access Check -->
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    if (sessionStorage.getItem("cameFromHome") !== "true") {
+      const deniedModal = new bootstrap.Modal(document.getElementById("accessDeniedModal"));
+      deniedModal.show();
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 300);
+    } else {
+      document.body.style.display = "block";
+    }
+  });
+</script>
+
+<!-- ✅ Job Logic -->
+<script>
+  let allJobs = [];
+
+  document.getElementById('filterIcon').addEventListener('click', () => {
+    const panel = document.getElementById('filterPanel');
+    panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  async function fetchJobs() {
+    try {
+      const response = await fetch('http://localhost:8081/api/jobs');
+      const jobs = await response.json();
+      allJobs = jobs;
+      displayJobs(jobs);
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+    }
+  }
+
+  function displayJobs(jobs) {
+    const jobContainer = document.getElementById('job-list');
+    jobContainer.innerHTML = '';
+
+    if (!jobs.length) {
+      jobContainer.innerHTML = '<p>No jobs found.</p>';
+      return;
+    }
+
+    jobs.forEach(job => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h2>${job.role}</h2>
+        <div class="info">
+          <div><strong>Company:</strong> ${job.company}</div>
+          <div><strong>Role:</strong> ${job.role}</div>
+          <div><strong>Eligibility:</strong> ${job.eligibility}</div>
+          <div><strong>Qualification:</strong> ${job.qualification}</div>
+          <div><strong>Skills:</strong> ${job.skills}</div>
+          <div><strong>Experience:</strong> ${job.experience}</div>
+          <div><strong>Salary:</strong> ${job.salary}</div>
+          <div><strong>Last Date:</strong> ${job.lastDate}</div>
+        </div>
+        <div class="footer">
+          <span>${job.location}</span>
+          <a href="${job.applyLink}" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+      `;
+      jobContainer.appendChild(card);
+    });
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+
+    const getCheckedValues = (cls) =>
+      Array.from(document.querySelectorAll(`.filter.${cls}:checked`)).map(cb => cb.value.toLowerCase());
+
+    const locationFilters = getCheckedValues('location');
+    const roleFilters = getCheckedValues('role');
+    const skillFilters = getCheckedValues('skills');
+    const eligibilityFilters = getCheckedValues('eligibility');
+    const salaryFilters = getCheckedValues('salary');
+    const expFilters = getCheckedValues('exp');
+    const qualFilters = getCheckedValues('qual');
+
+    const filtered = allJobs.filter(job => {
+      const matchesSearch = [job.role, job.company, job.skills].some(field =>
+        field.toLowerCase().includes(search)
+      );
+
+      const matchesLocation = !locationFilters.length || locationFilters.includes(job.location.toLowerCase());
+      const matchesRole = !roleFilters.length || roleFilters.includes(job.role.toLowerCase());
+      const matchesSkills = !skillFilters.length || skillFilters.some(skill => job.skills.toLowerCase().includes(skill));
+      const matchesEligibility = !eligibilityFilters.length || eligibilityFilters.some(e => job.eligibility.toLowerCase().includes(e));
+      const matchesSalary = !salaryFilters.length || salaryFilters.some(s => parseInt(job.salary) >= parseInt(s));
+      const matchesExp = !expFilters.length || expFilters.includes(job.experience.toLowerCase());
+      const matchesQual = !qualFilters.length || qualFilters.includes(job.qualification.toLowerCase());
+
+      return matchesSearch && matchesLocation && matchesRole && matchesSkills && matchesEligibility && matchesSalary && matchesExp && matchesQual;
+    });
+
+    displayJobs(filtered);
+  }
+
+  document.getElementById('searchInput').addEventListener('input', applyFilters);
+  document.querySelectorAll('.filter').forEach(cb => cb.addEventListener('change', applyFilters));
+
+  window.addEventListener('load', fetchJobs);
+</script>
+
+</body>
+</html>

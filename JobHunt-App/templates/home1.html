@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home - JobHunt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 80px;
+      margin-right: 10px;
+    }
+
+    .logo span {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff6d00;
+    }
+
+    .nav-buttons a {
+      margin-left: 15px;
+      padding: 8px 16px;
+      background-color: #ff6d00;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .nav-buttons a:hover {
+      background-color: #e55c00;
+    }
+
+    .hero {
+      background: url('https://static.vecteezy.com/system/resources/previews/020/491/988/non_2x/the-concept-of-business-development-with-personnel-choosing-a-professional-leader-recruitment-job-interview-hrm-or-human-resource-management-a-magnifying-glass-is-placed-on-an-orange-background-free-photo.jpg') center/cover no-repeat;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .search-bar {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-bar input {
+      padding: 12px;
+      width: 300px;
+      border-radius: 8px 0 0 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .search-bar button {
+      padding: 12px 20px;
+      background-color: #ff6d00;
+      color: white;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .categories {
+      padding: 40px 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #ff6d00;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 20px 5%;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .search-bar {
+        flex-direction: column;
+      }
+
+      .search-bar input,
+      .search-bar button {
+        width: 100%;
+        border-radius: 8px;
+      }
+
+      .search-bar button {
+        margin-top: 10px;
+        border-radius: 8px;
+      }
+
+      .nav-buttons a {
+        margin-left: 5px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="https://thumbs.dreamstime.com/b/initial-letter-jh-logotype-company-name-colored-orange-grey-swoosh-star-design-vector-logo-business-identity-203969240.jpg" alt="Logo">
+      <span>JobHunt</span>
+    </div>
+    <div class="nav-buttons">
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Find Your Dream Job</h1>
+      <p>Search from thousands of opportunities across industries</p>
+     <!-- <div class="search-bar">
+        <input type="text" placeholder="Search jobs or companies..."/>
+        <button>Search</button>
+      </div>-->
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="card">
+      <h3>IT Jobs</h3>
+      <p>Explore tech openings across top companies.</p>
+    </div>
+    <div class="card">
+      <h3>Marketing</h3>
+      <p>Find creative and digital marketing jobs.</p>
+    </div>
+    <div class="card">
+      <h3>Internships</h3>
+      <p>Kickstart your career with internships in top startups.</p>
+    </div>
+    <div class="card">
+      <h3>Remote Jobs</h3>
+      <p>Work from home or anywhere in the world.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 JobHunt | Made with ❤️ for job seekers
+  </footer>
+  <script>
+  if (window.history && window.history.pushState) {
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+      window.history.go(1);
+    };
+  }
+</script>
+  
+
+</body>
+</html>
